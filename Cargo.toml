@@ -1,0 +1,15 @@
+[package]
+name = "calc_pi"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+clap = { version = "4.5.40", features = ["derive"] }
+rug = "1.27.0"
+
+[profile.release]
+opt-level = "s"
+codegen-units = 1
+lto = true
+strip = true
+panic = "abort"
