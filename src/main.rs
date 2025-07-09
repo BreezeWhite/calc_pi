@@ -117,14 +117,20 @@ fn decide_iterations(act: Actions, decimal_prec: usize) -> u64 {
 fn pi_leibniz(start_idx: u64, end_idx: u64, prec: u32) -> Float {
     // https://en.wikipedia.org/wiki/Leibniz_formula_for_π
     let mut nume = if start_idx % 2 == 0 {
-        Float::with_val(prec, 1)
+        Integer::from(1)
     } else {
-        Float::with_val(prec, -1)
+        Integer::from(-1)
     };
+
+    let mut deno = Integer::from(0);
+    let mut s1 = Float::with_val(prec, 0);
     let mut sum = Float::with_val(prec, 0);
     for i in start_idx..end_idx {
-        let deno = Float::with_val(prec, i) * 2 + 1;
-        sum += nume.clone() / deno;
+        deno.assign(i * 2);
+        deno += 1;
+        s1.assign(&nume);
+        s1 /= &deno;
+        sum += &s1;
         nume *= -1;
     }
 
@@ -519,7 +525,7 @@ fn main() {
     let decimal_prec = arg.prec;
     let prec = (decimal_prec as f64 * 3.3219281).round() as u32 + 10;
     let iters = decide_iterations(arg.action.clone(), decimal_prec);
-    println!("{iters} {prec}");
+    // println!("{iters} {prec}");
 
     let pi_func = match arg.action {
         Actions::Leibniz => pi_leibniz,
