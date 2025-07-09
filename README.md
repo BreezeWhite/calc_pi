@@ -1,7 +1,10 @@
 # Pi Calculation in Rust
 
-Various algorithms are implemented to calculate Pi. The list is as follows:
+This is a Rust CLI tool for calculating Pi digits using various algorithms. It can compute to millions of Pi digits within just a few seconds (see [below](#performance)).
 
+Supported algorithms are listed as follows:
+
+<!-- | Algorithm | Note | -->
 | Algorithm | Note |
 | --------- | --- |
 | [Leibniz](https://en.wikipedia.org/wiki/Leibniz_formula_for_π) | Slowest |
@@ -13,6 +16,12 @@ Various algorithms are implemented to calculate Pi. The list is as follows:
 | [Chudnovsky](https://en.wikipedia.org/wiki/Chudnovsky_algorithm) | |
 | [Chudnovsky Binary Splitting](https://www.craig-wood.com/nick/articles/pi-chudnovsky/) | World-record breaking algorithm. |
 | [Chudnovsky Binary Splitting Parallelized](https://yamakuramun.info/2024/05/26/686/) | Fastest. |
+
+## Installation
+
+```bash
+cargo install --git https://github.com/BreezeWhite/calc_pi
+```
 
 ## Usage
 
