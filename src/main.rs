@@ -51,6 +51,7 @@ enum Actions {
     AG,
 }
 
+#[allow(dead_code)]
 fn cmp_pi(pi: String) {
     let file = match File::open("PI_10M.txt") {
         Ok(f) => f,
@@ -541,7 +542,7 @@ fn main() {
         pi.to_string_radix_round(10, Some(decimal_prec), Round::Down)
     );
 
-    cmp_pi(pi.clone());
+    // cmp_pi(pi.clone());
 
     if let Some(path) = arg.output_to {
         let mut file = match File::create(&path) {
@@ -555,7 +556,7 @@ fn main() {
             eprintln!("Failed to write to {}: {}", path, e);
         }
     } else {
-        // println!("{pi}");
+        println!("{pi}");
     }
 
     if arg.measure_time {
