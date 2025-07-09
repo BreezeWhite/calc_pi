@@ -32,10 +32,11 @@ Commands:
   help     Print this message or the help of the given subcommand(s)
 
 Options:
-  -p, --prec <PREC>   Precision of Pi to calculate in digits [default: 1000]
-      --measure-time  Measure and show the runtime
-  -h, --help          Print help
-  -V, --version       Print version
+  -p, --prec <PREC>            Precision of Pi to calculate in digits [default: 1000]
+      --measure-time           Measure and show the runtime
+      --output-to <OUTPUT_TO>  Path of file to output ad store the calculated Pi digits
+  -h, --help                   Print help
+  -V, --version                Print version
 ```
 
 ```bash
@@ -44,6 +45,9 @@ calc_pi -p 1000000 cbp
 
 # Show the runtime.
 calc_pi -p 1000000 --measure-time cbp
+
+# Output the result to file
+calc_pi -p 1000000 --output-to pi.txt cbp
 
 ```
 
