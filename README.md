@@ -22,7 +22,7 @@ Usage: calc_pi [OPTIONS] <COMMAND>
 Commands:
   leibniz  Leibniz formula
   bbp      Bailey–Borwein–Plouffe formula
-  bn       Borwein's algorithm nonic (9th) convergence version
+  bn       Borwein algorithm nonic (9th) convergence version
   bs       Brent–Salamin algorithm
   gl       Gauss–Legendre algorithm
   chu      Chudnovsky algorithm
@@ -64,22 +64,26 @@ calc_pi -p 1000000 --output-to pi.txt cbp
 - Rust Version: 1.86.0
 - Cargo Version: 1.86.0
 
-| Algorithm | 7 digits |  1K digits | 10K digits | 100K digits | 1M digits | 10M digits |
-| --------- | -------- |  ------------ | ------------- | -------------- | ---------------- | ----------------  |
-| Leibniz | 573.2 ms | - | - | - | - | - |
-| Bailey-Borwein-Plouffe | -  | 2.5 ms | 660.3 ms | 208.9 s | - | - |
-| Borwein Nonic | - | 3.6 ms | 159.6 ms | 5.123 s | - | - |
-| Brent-Salamin | - | - | 3.2 ms | 70.8 ms | 1.231 s | 21.364 s |
-| Gauss-Legendre | - | - | 3.5 ms | 70.6 ms | 1.229 s | 21.121 s |
-| Machin-like Formula  | - | 1.9 ms | 14.9 ms | 465.4 ms | 8.673 s | - |
-| Chudnovsky | - | - | 5.1 ms | 369.2 ms | 38.22 s | - |
-| Chudnovsky Binary Splitting | - | - | - | 23.5 ms | 434.1 ms | 7.9 s |
-| Chudnovsky Binary Splitting Parallelized | - | - | - | 23.5 ms | 353.6 ms | 5.93 s |
+| Algorithm | 9 digits |  1K digits | 10K digits | 100K digits | 1M digits | 10M digits |
+| --------- | -------- |  --------- | ---------- | ----------- | --------- | ---------  |
+| Leibniz   | 28.568 s | -          | -          | -           | -         | -          |
+| Bailey-Borwein-Plouffe | - | 2.5 ms | 660.3 ms | 208.9 s     | -         | -          |
+| Borwein Nonic | -    | 3.6 ms     | 159.6 ms   | 5.123 s     | -         | -          |
+| Brent-Salamin | -    | -          | 3.2 ms     | 70.8 ms     | 1.231 s   | 21.364 s   |
+| Gauss-Legendre | -   | -          | 3.5 ms     | 70.6 ms     | 1.229 s   | 21.121 s   |
+| Machin-like Formula  | - | 1.9 ms | 14.9 ms    | 465.4 ms    | 8.673 s   | -          |
+| Chudnovsky | -       | -          | 5.1 ms     | 369.2 ms    | 38.22 s   | -          |
+| Chudnovsky Binary Splitting | - | - | -        | 23.5 ms     | 434.1 ms  | 7.9 s      |
+| Chudnovsky Binary Splitting Parallelized | - | - | - | 23.5 ms | 353.6 ms | 5.93 s    |
 
 | Algorithm | 100M digits |
 | --------- | ----------- |
 | Chudnovsky Binary Splitting | 109.58 s |
 | Chudnovsky Binary Splitting Parallelized | 69.014 s |
+
+## Notes
+- Parallel version of Chudnovsky Binary Splitting uses half of the CPU cores available on the system.
+- Use `Integer` for variables when possible. This boosts performance significantly.
 
 ## Reference
 - https://www.hvks.com/Numerical/Downloads/HVE%20Practical%20implementation%20of%20PI%20Algorithms.pdf
