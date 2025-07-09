@@ -1,6 +1,6 @@
 # Pi Calculation in Rust
 
-This is a Rust CLI tool for calculating Pi digits using various algorithms. It can compute to millions of Pi digits within just a few seconds (see [below](#performance)).
+This is a Rust CLI tool for calculating Pi digits using various algorithms. It can compute to a million digits of Pi in less than 1 second (see [below](#performance)).
 
 Supported algorithms are listed as follows:
 
@@ -14,7 +14,7 @@ Supported algorithms are listed as follows:
 | [Gauss-Legendre](https://en.wikipedia.org/wiki/Gauss%E2%80%93Legendre_algorithm) | Only slightly different from Brent-Salamin. |
 | [Machin-like Formula](https://en.wikipedia.org/wiki/Machin-like_formula#Two-term_formulas) | Using arctan to calculate Pi. |
 | [Chudnovsky](https://en.wikipedia.org/wiki/Chudnovsky_algorithm) | |
-| [Chudnovsky Binary Splitting](https://www.craig-wood.com/nick/articles/pi-chudnovsky/) | World-record breaking algorithm. |
+| [Chudnovsky Binary Splitting](https://www.craig-wood.com/nick/articles/pi-chudnovsky/) | World record-breaking algorithm. |
 | [Chudnovsky Binary Splitting Parallelized](https://yamakuramun.info/2024/05/26/686/) | Fastest. |
 
 ## Installation

@@ -3,7 +3,7 @@ name = "calc_pi"
 version = "0.1.0"
 edition = "2024"
 authors = ["BreezeWhite, <miyashita2010@tuta.io>"]
-description = "CLI for calculating millions Pi digits within seconds."
+description = "CLI for calculating millions of Pi digits within seconds. Various algorithms are supported."
 repository = "https://github.com/BreezeWhite/calc_pi"
 readme = "README.md"
 
