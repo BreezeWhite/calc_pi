@@ -4,6 +4,7 @@ use std::thread;
 use std::time::Instant;
 
 use clap::{Parser, Subcommand};
+use rayon::prelude::*;
 use rug::{
     Assign, Float, Integer,
     float::Round,
@@ -469,42 +470,53 @@ fn pi_chudnovsky_binary_splitting(start_idx: u64, end_idx: u64, prec: u32) -> Fl
     let tab = Integer::from(0);
 
     let (_, q, t) = pi_chu_binary_sub(start_idx, end_idx, prec, pab, qab, tab);
-    let pi = q * 426880 * Float::with_val(prec, 10005).sqrt() / t;
+
+    let mut pi = Float::with_val(prec, q);
+    pi /= t;
+    pi *= 426880;
+    pi *= Float::with_val(prec, 10005).sqrt();
     pi
 }
 
 fn pi_chudnovsky_binary_splitting_parallel(start_idx: u64, end_idx: u64, prec: u32) -> Float {
     // Use half of the CPU cores to compute in parallel.
     let thread_cnt = thread::available_parallelism().map(|n| n.get()).unwrap() / 2;
+    rayon::ThreadPoolBuilder::new()
+        .num_threads(thread_cnt)
+        .build_global()
+        .unwrap();
     let step_size: u64 = (end_idx - start_idx) / thread_cnt as u64;
 
-    let mut handles = Vec::new();
+    let results: Vec<(Integer, Integer, Integer)> = (0..thread_cnt)
+        .into_par_iter()
+        .map(|i| {
+            let pab = Integer::from(1);
+            let qab = Integer::from(1);
+            let tab = Integer::from(0);
+            let a = i as u64 * step_size;
+            let b = a + step_size;
+            pi_chu_binary_sub(a, b, prec, pab, qab, tab)
+        })
+        .collect();
 
-    for i in 0..thread_cnt {
-        let pab = Integer::from(1);
-        let qab = Integer::from(1);
-        let tab = Integer::from(0);
-        let a = i as u64 * step_size;
-        let b = a + step_size;
-        // let builder = std::thread::Builder::new().stack_size(16 * 1024 * 1024); // 16 MB
-        // let handle = builder
-        //     .spawn(move || pi_chu_binary_sub(a, b, prec, pab, qab, tab))
-        //     .unwrap();
-        let handle = thread::spawn(move || pi_chu_binary_sub(a, b, prec, pab, qab, tab));
-        handles.push(handle);
+    let mut pab = Integer::from(1);
+    let mut qab = Integer::from(1);
+    let mut tab = Integer::from(0);
+
+    for (pmb, qmb, mut tmb) in results {
+        let _: Vec<_> = vec![(&mut qab, &qmb), (&mut tab, &qmb), (&mut tmb, &pab)]
+            .into_par_iter()
+            .map(|(a, b)| a.mul_from(b))
+            .collect();
+
+        pab *= pmb;
+        tab += tmb;
     }
 
-    let pab = Integer::from(1);
-    let qab = Integer::from(1);
-    let tab = Integer::from(0);
-    let (_, q, t) = handles
-        .into_iter()
-        .fold((pab, qab, tab), |(pab, qab, tab), handle| {
-            let (pmb, qmb, tmb) = handle.join().unwrap();
-            (&pab * pmb, qab * &qmb, tab * qmb + pab * tmb)
-        });
-
-    let pi = q * 426880 * Float::with_val(prec, 10005).sqrt() / t;
+    let mut pi = Float::with_val(prec, qab);
+    pi /= tab;
+    pi *= 426880;
+    pi *= Float::with_val(prec, 10005).sqrt();
     pi
 }
 
@@ -523,7 +535,7 @@ fn main() {
     let arg = Cli::parse();
 
     let decimal_prec = arg.prec;
-    let prec = (decimal_prec as f64 * 3.3219281).round() as u32 + 10;
+    let prec = (decimal_prec as f64 * 3.3219280948874).round() as u32 + 10;
     let iters = decide_iterations(arg.action.clone(), decimal_prec);
     // println!("{iters} {prec}");
 
@@ -548,7 +560,7 @@ fn main() {
         pi.to_string_radix_round(10, Some(decimal_prec), Round::Down)
     );
 
-    // cmp_pi(pi.clone());
+    cmp_pi(pi.clone());
 
     if let Some(path) = arg.output_to {
         let mut file = match File::create(&path) {
