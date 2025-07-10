@@ -9,6 +9,7 @@ Supported algorithms are listed as follows:
 | --------- | --- |
 | [Leibniz](https://en.wikipedia.org/wiki/Leibniz_formula_for_π) | Slowest |
 | [Bailey-Borwein-Plouffe (BBP)](https://en.wikipedia.org/wiki/Bailey%E2%80%93Borwein%E2%80%93Plouffe_formula) | |
+| [Spigot Gosper](https://www.gavalas.dev/blog/spigot-algorithms-for-pi-in-python/#using-gospers-series) | |
 | [Borwein's Formula](https://en.wikipedia.org/wiki/Borwein%27s_algorithm#Nonic_convergence) | |
 | [Brent-Salamin](https://mathworld.wolfram.com/Brent-SalaminFormula.html) | |
 | [Gauss-Legendre](https://en.wikipedia.org/wiki/Gauss%E2%80%93Legendre_algorithm) | Only slightly different from Brent-Salamin. |
@@ -77,13 +78,14 @@ calc_pi -p 1000000 --output-to pi.txt cbp
 | --------- | -------- |  --------- | ---------- | ----------- | --------- | ---------  |
 | Leibniz   | 28.568 s | -          | -          | -           | -         | -          |
 | Bailey-Borwein-Plouffe | - | 2.5 ms | 660.3 ms | 208.9 s     | -         | -          |
+| Spigot Gosper | -    | 3.1 ms     | 867.6 ms   | 250.217 s   | -         | -          |
 | Borwein Nonic | -    | 3.6 ms     | 159.6 ms   | 5.123 s     | -         | -          |
 | Brent-Salamin | -    | -          | 3.2 ms     | 70.8 ms     | 1.231 s   | 21.364 s   |
 | Gauss-Legendre | -   | -          | 3.5 ms     | 70.6 ms     | 1.229 s   | 21.121 s   |
 | Machin-like Formula  | - | 1.9 ms | 14.9 ms    | 465.4 ms    | 8.673 s   | -          |
 | Chudnovsky | -       | -          | 5.1 ms     | 369.2 ms    | 38.22 s   | -          |
 | Chudnovsky Binary Splitting | - | - | -        | 23.5 ms     | 434.1 ms  | 7.9 s      |
-| Chudnovsky Binary Splitting Parallelized | - | - | - | 19.9 ms | 293.7 ms | 4.628 s    |
+| Chudnovsky Binary Splitting Parallelized | - | - | - | 19.9 ms | 293.7 ms | 4.628 s   |
 
 | Algorithm | 100M digits |
 | --------- | ----------- |

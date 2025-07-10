@@ -36,20 +36,22 @@ enum Actions {
     Leibniz,
     /// Bailey–Borwein–Plouffe formula
     BBP,
+    /// Spigot Gosper algorithm
+    SPG,
     /// Borwein's algorithm nonic (9th) convergence version
     BN,
     /// Brent–Salamin algorithm
     BS,
     /// Gauss–Legendre algorithm
     GL,
+    /// Machin-like formulas (arctan)
+    AG,
     /// Chudnovsky algorithm
     Chu,
     /// Chudnovsky algorithm with binary splitting
     CB,
     /// Chudnovsky algorithm with binary splitting and multi-thread
     CBP,
-    /// Machin-like formulas (arctan)
-    AG,
 }
 
 #[allow(dead_code)]
@@ -112,6 +114,7 @@ fn decide_iterations(act: Actions, decimal_prec: usize) -> u64 {
         Actions::CB => decimal_prec as u64 / 14 + 1,
         Actions::CBP => decimal_prec as u64 / 14 + 1,
         Actions::AG => 1,
+        Actions::SPG => ((decimal_prec as f64 / 0.9).round() + 2.) as u64,
     }
 }
 
@@ -531,6 +534,34 @@ fn pi_arctan_gauss(_start_idx: u64, _end_idx: u64, prec: u32) -> Float {
     pi
 }
 
+fn pi_spigot_gosper(start_idx: u64, end_idx: u64, prec: u32) -> Float {
+    // Spigot algorithm with Gosper's seires.
+    // https://www.gavalas.dev/blog/spigot-algorithms-for-pi-in-python/#using-gospers-series
+    let mut nume = Integer::from(1);
+    let mut deno = Integer::from(1);
+    let mut lead = Integer::from(0);
+    let mut n: u64;
+    let mut term = Float::with_val(prec, 0);
+
+    let mut pi = Float::with_val(prec, 0);
+    for i in start_idx..end_idx {
+        lead.assign(i + 1);
+        lead *= 5;
+        lead -= 2;
+
+        term.assign(&lead);
+        term *= &nume;
+        term /= &deno;
+
+        pi += &term;
+
+        n = i + 1;
+        nume *= n * (2 * n - 1);
+        deno *= 3 * (9 * (n * n + n) + 2);
+    }
+    pi
+}
+
 fn main() {
     let arg = Cli::parse();
 
@@ -549,6 +580,7 @@ fn main() {
         Actions::CB => pi_chudnovsky_binary_splitting,
         Actions::CBP => pi_chudnovsky_binary_splitting_parallel,
         Actions::AG => pi_arctan_gauss,
+        Actions::SPG => pi_spigot_gosper,
     };
 
     let start = Instant::now();
@@ -560,7 +592,7 @@ fn main() {
         pi.to_string_radix_round(10, Some(decimal_prec), Round::Down)
     );
 
-    cmp_pi(pi.clone());
+    // cmp_pi(pi.clone());
 
     if let Some(path) = arg.output_to {
         let mut file = match File::create(&path) {
