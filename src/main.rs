@@ -38,7 +38,7 @@ enum Actions {
     BBP,
     /// Spigot Gosper algorithm
     SPG,
-    /// Borwein's algorithm nonic (9th) convergence version
+    /// Borwein algorithm nonic (9th) convergence version
     BN,
     /// Brent–Salamin algorithm
     BS,

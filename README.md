@@ -35,7 +35,7 @@ Commands:
   leibniz  Leibniz formula
   bbp      Bailey–Borwein–Plouffe formula
   spg      Spigot Gosper algorithm
-  bn       Borwein's algorithm nonic (9th) convergence version
+  bn       Borwein algorithm nonic (9th) convergence version
   bs       Brent–Salamin algorithm
   gl       Gauss–Legendre algorithm
   ag       Machin-like formulas (arctan)
