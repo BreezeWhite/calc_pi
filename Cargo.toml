@@ -9,6 +9,7 @@ readme = "README.md"
 
 [dependencies]
 clap = { version = "4.5.40", features = ["derive"] }
+rayon = "1.10.0"
 rug = "1.27.0"
 
 [profile.release]
