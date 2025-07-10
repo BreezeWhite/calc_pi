@@ -83,12 +83,12 @@ calc_pi -p 1000000 --output-to pi.txt cbp
 | Machin-like Formula  | - | 1.9 ms | 14.9 ms    | 465.4 ms    | 8.673 s   | -          |
 | Chudnovsky | -       | -          | 5.1 ms     | 369.2 ms    | 38.22 s   | -          |
 | Chudnovsky Binary Splitting | - | - | -        | 23.5 ms     | 434.1 ms  | 7.9 s      |
-| Chudnovsky Binary Splitting Parallelized | - | - | - | 23.5 ms | 353.6 ms | 5.93 s    |
+| Chudnovsky Binary Splitting Parallelized | - | - | - | 19.9 ms | 293.7 ms | 4.628 s    |
 
 | Algorithm | 100M digits |
 | --------- | ----------- |
 | Chudnovsky Binary Splitting | 109.58 s |
-| Chudnovsky Binary Splitting Parallelized | 69.014 s |
+| Chudnovsky Binary Splitting Parallelized | 48.739 s |
 
 ## Notes
 - Parallel version of Chudnovsky Binary Splitting uses half of the CPU cores available on the system.
