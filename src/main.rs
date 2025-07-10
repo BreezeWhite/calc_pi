@@ -25,7 +25,7 @@ struct Cli {
     #[arg(long)]
     measure_time: bool,
 
-    /// Path of file to output ad store the calculated Pi digits.
+    /// Path of file to output and store the calculated Pi digits.
     #[arg(long)]
     output_to: Option<String>,
 }

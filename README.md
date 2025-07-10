@@ -27,24 +27,27 @@ cargo install --git https://github.com/BreezeWhite/calc_pi
 ## Usage
 
 ```bash
+CLI for calculating millions of Pi digits within seconds. Various algorithms are supported.
+
 Usage: calc_pi [OPTIONS] <COMMAND>
 
 Commands:
   leibniz  Leibniz formula
   bbp      Bailey–Borwein–Plouffe formula
-  bn       Borwein algorithm nonic (9th) convergence version
+  spg      Spigot Gosper algorithm
+  bn       Borwein's algorithm nonic (9th) convergence version
   bs       Brent–Salamin algorithm
   gl       Gauss–Legendre algorithm
+  ag       Machin-like formulas (arctan)
   chu      Chudnovsky algorithm
   cb       Chudnovsky algorithm with binary splitting
   cbp      Chudnovsky algorithm with binary splitting and multi-thread
-  ag       Machin-like formulas (arctan)
   help     Print this message or the help of the given subcommand(s)
 
 Options:
   -p, --prec <PREC>            Precision of Pi to calculate in digits [default: 1000]
       --measure-time           Measure and show the runtime
-      --output-to <OUTPUT_TO>  Path of file to output ad store the calculated Pi digits
+      --output-to <OUTPUT_TO>  Path of file to output and store the calculated Pi digits
   -h, --help                   Print help
   -V, --version                Print version
 ```
