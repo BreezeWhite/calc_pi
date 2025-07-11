@@ -10,6 +10,7 @@ Supported algorithms are listed as follows:
 | [Leibniz](https://en.wikipedia.org/wiki/Leibniz_formula_for_π) | Slowest |
 | [Bailey-Borwein-Plouffe (BBP)](https://en.wikipedia.org/wiki/Bailey%E2%80%93Borwein%E2%80%93Plouffe_formula) | |
 | [Spigot Gosper](https://www.gavalas.dev/blog/spigot-algorithms-for-pi-in-python/#using-gospers-series) | |
+| [Newton 9th Order Convergence](https://www.hvks.com/Numerical/Downloads/HVE%20Practical%20implementation%20of%20PI%20Algorithms.pdf) | Page 9 of the paper |
 | [Borwein's Formula](https://en.wikipedia.org/wiki/Borwein%27s_algorithm#Nonic_convergence) | |
 | [Brent-Salamin](https://mathworld.wolfram.com/Brent-SalaminFormula.html) | |
 | [Gauss-Legendre](https://en.wikipedia.org/wiki/Gauss%E2%80%93Legendre_algorithm) | Only slightly different from Brent-Salamin. |
@@ -35,6 +36,7 @@ Commands:
   leibniz  Leibniz formula
   bbp      Bailey–Borwein–Plouffe formula
   spg      Spigot Gosper algorithm
+  newton   Newton method. 9th order convergence
   bn       Borwein algorithm nonic (9th) convergence version
   bs       Brent–Salamin algorithm
   gl       Gauss–Legendre algorithm
@@ -61,7 +63,6 @@ calc_pi -p 1000000 --measure-time cbp
 
 # Output the result to file
 calc_pi -p 1000000 --output-to pi.txt cbp
-
 ```
 
 ## Recommended Reading
@@ -95,6 +96,8 @@ calc_pi -p 1000000 --output-to pi.txt cbp
 | --------- | ----------- |
 | Chudnovsky Binary Splitting | 109.58 s |
 | Chudnovsky Binary Splitting Parallelized | 48.739 s |
+| [y-cruncher](https://www.numberworld.org/y-cruncher/) (single-thread) | 21.908 s |
+| [y-cruncher](https://www.numberworld.org/y-cruncher/) (multi-thread) | 5.354 s |
 
 ## Notes
 - Parallel version of Chudnovsky Binary Splitting uses half of the CPU cores available on the system.
@@ -107,3 +110,4 @@ calc_pi -p 1000000 --output-to pi.txt cbp
 - https://yamakuramun.info/2024/05/26/686/
 - https://qiita.com/yonaka15/items/992b3306106c150f36c6
 - https://github.com/elkasztano/piday25
+- https://www.numberworld.org/y-cruncher/
