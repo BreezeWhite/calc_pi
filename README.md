@@ -82,6 +82,7 @@ calc_pi -p 1000000 --output-to pi.txt cbp
 | Leibniz   | 28.568 s | -          | -          | -           | -         | -          |
 | Bailey-Borwein-Plouffe | - | 2.5 ms | 660.3 ms | 208.9 s     | -         | -          |
 | Spigot Gosper | -    | 3.1 ms     | 867.6 ms   | 250.217 s   | -         | -          |
+| Newton    | -        | 5.2 ms     | 43.7 ms    | 1.421 s     | 30.475 s  | -          |
 | Borwein Nonic | -    | 3.6 ms     | 159.6 ms   | 5.123 s     | -         | -          |
 | Brent-Salamin | -    | -          | 3.2 ms     | 70.8 ms     | 1.231 s   | 21.364 s   |
 | Gauss-Legendre | -   | -          | 3.5 ms     | 70.6 ms     | 1.229 s   | 21.121 s   |

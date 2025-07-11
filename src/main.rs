@@ -38,6 +38,8 @@ enum Actions {
     BBP,
     /// Spigot Gosper algorithm
     SPG,
+    /// Newton method. 9th order convergence.
+    Newton,
     /// Borwein algorithm nonic (9th) convergence version
     BN,
     /// Brent–Salamin algorithm
@@ -115,6 +117,12 @@ fn decide_iterations(act: Actions, decimal_prec: usize) -> u64 {
         Actions::CBP => decimal_prec as u64 / 14 + 1,
         Actions::AG => 1,
         Actions::SPG => ((decimal_prec as f64 / 0.9).round() + 2.) as u64,
+        Actions::Newton => {
+            let log9 = 9_f64.log10();
+            let p = decimal_prec as f64;
+            let iters = p.log10() / log9;
+            iters.ceil() as u64 + 1
+        }
     }
 }
 
@@ -195,7 +203,7 @@ fn pi_bailey_borwein_plouffe_v2(start_idx: u64, end_idx: u64, prec: u32) -> Floa
     let mut k4 = Integer::from(0);
     let mut deno = Integer::from(0);
     let mut deno16 = Integer::from(1);
-    let mut nomi = Integer::from(0);
+    let mut nume = Integer::from(0);
 
     for i in start_idx..end_idx {
         k2.assign(i * i);
@@ -210,11 +218,11 @@ fn pi_bailey_borwein_plouffe_v2(start_idx: u64, end_idx: u64, prec: u32) -> Floa
         deno *= &deno16;
         deno16 *= 16;
 
-        nomi.assign(47);
-        nomi += 151 * i;
-        nomi += &k2 * 120;
+        nume.assign(47);
+        nume += 151 * i;
+        nume += &k2 * 120;
 
-        pi1.assign(&nomi);
+        pi1.assign(&nume);
         pi1 /= &deno;
         pi += &pi1;
     }
@@ -562,6 +570,36 @@ fn pi_spigot_gosper(start_idx: u64, end_idx: u64, prec: u32) -> Float {
     pi
 }
 
+fn pi_newton_9th(start_idx: u64, end_idx: u64, prec: u32) -> Float {
+    // Page 9 of the following paper
+    // https://www.hvks.com/Numerical/Downloads/HVE%20Practical%20implementation%20of%20PI%20Algorithms.pdf
+    let mut pi = Float::with_val(prec, 2); // Initial guess
+    let mut sinx = Float::with_val(prec, 1);
+    let mut sinx2 = Float::with_val(prec, 1);
+    let mut term = Float::with_val(prec, 0);
+
+    for _ in start_idx..end_idx {
+        sinx.assign(&pi);
+        sinx = sinx.sin();
+        sinx2.assign(&sinx);
+        sinx2 = sinx2.square();
+
+        term.assign(&sinx2);
+        term *= 75;
+        term += 126;
+        term *= &sinx2;
+        term += 280;
+        term *= &sinx2;
+        term += 1680;
+        term *= &sinx;
+        term /= 1680;
+
+        pi += &term;
+    }
+
+    pi
+}
+
 fn main() {
     let arg = Cli::parse();
 
@@ -581,6 +619,7 @@ fn main() {
         Actions::CBP => pi_chudnovsky_binary_splitting_parallel,
         Actions::AG => pi_arctan_gauss,
         Actions::SPG => pi_spigot_gosper,
+        Actions::Newton => pi_newton_9th,
     };
 
     let start = Instant::now();
