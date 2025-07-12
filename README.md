@@ -1,5 +1,8 @@
 # Pi Calculation in Rust (*Also available in Python*)
 
+[![Crates.io](https://img.shields.io/crates/v/calc_pi.svg)](https://crates.io/crates/calc_pi)
+[![PyPI](https://img.shields.io/pypi/v/calc-pi.svg?color=blue)](https://pypi.org/project/calc-pi/)
+
 This is a Rust CLI tool for calculating Pi digits using various algorithms. It can compute to a million digits of Pi in less than 1 second (see [below](#performance)).
 
 Supported algorithms are listed as follows:
