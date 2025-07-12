@@ -2,7 +2,7 @@ use std::fs::File;
 use std::io::{BufReader, Read, Write};
 use std::time::Instant;
 
-use calc_pi::{Actions, Cli, algos, decide_iterations};
+use calc_pi::{Actions, Cli, algos, get_iters_and_prec};
 use clap::Parser;
 use rug::float::Round;
 
@@ -41,8 +41,7 @@ fn main() {
     let arg = Cli::parse();
 
     let decimal_prec = arg.prec;
-    let prec = (decimal_prec as f64 * 3.3219280948874).round() as u32 + 10;
-    let iters = decide_iterations(arg.action.clone(), decimal_prec);
+    let (iters, prec) = get_iters_and_prec(arg.action.clone(), decimal_prec);
     // println!("{iters} {prec}");
 
     let pi_func = match arg.action {
