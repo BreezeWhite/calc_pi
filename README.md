@@ -1,4 +1,4 @@
-# Pi Calculation in Rust
+# Pi Calculation in Rust (*Also available in Python*)
 
 This is a Rust CLI tool for calculating Pi digits using various algorithms. It can compute to a million digits of Pi in less than 1 second (see [below](#performance)).
 
@@ -21,8 +21,20 @@ Supported algorithms are listed as follows:
 
 ## Installation
 
+**Use in terminal**
 ```bash
-cargo install --git https://github.com/BreezeWhite/calc_pi
+cargo install calc_pi
+```
+
+**Use in Python**
+```bash
+pip install calc-pi
+```
+```python
+import calc_pi
+
+# Calculate Pi to 1000 digits using Chudnovsky algorithm
+print(calc_pi.chudnovsky(1000))  # 3.1415926535897932...
 ```
 
 ## Usage

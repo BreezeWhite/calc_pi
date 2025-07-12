@@ -6,11 +6,17 @@ authors = ["BreezeWhite, <miyashita2010@tuta.io>"]
 description = "CLI for calculating millions of Pi digits within seconds. Various algorithms are supported."
 repository = "https://github.com/BreezeWhite/calc_pi"
 readme = "README.md"
+license = "Apache-2.0"
+keywords = ["pi", "cli", "rust", "benchmark", "python"]
 
 [dependencies]
 clap = { version = "4.5.40", features = ["derive"] }
+pyo3 = { version = "0.25.1", features = ["extension-module"], optional = true }
 rayon = "1.10.0"
 rug = "1.27.0"
+
+[features]
+py = ["pyo3"]
 
 [profile.release]
 opt-level = "s"
@@ -18,3 +24,8 @@ codegen-units = 1
 lto = true
 strip = true
 panic = "abort"
+
+[lib]
+required-features = ["py"]
+name = "calc_pi"
+crate-type = ["cdylib", "lib"]
