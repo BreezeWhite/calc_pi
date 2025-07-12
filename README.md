@@ -23,7 +23,7 @@ Supported algorithms are listed as follows:
 
 **Use in terminal**
 ```bash
-cargo install --git https://github.com/BreezeWhite/calc_pi
+cargo install calc_pi
 ```
 
 **Use in Python**
