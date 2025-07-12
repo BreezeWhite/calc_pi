@@ -84,12 +84,12 @@ calc_pi -p 1000000 --output-to pi.txt cbp
 | Bailey-Borwein-Plouffe | - | 2.5 ms | 660.3 ms | 208.9 s     | -         | -          |
 | Spigot Gosper | -    | 3.1 ms     | 867.6 ms   | 250.217 s   | -         | -          |
 | Newton    | -        | 5.2 ms     | 43.7 ms    | 1.421 s     | 30.475 s  | -          |
-| Borwein Nonic | -    | 3.6 ms     | 159.6 ms   | 5.123 s     | -         | -          |
+| Borwein Nonic | -    | 3.6 ms     | 159.6 ms   | 5.123 s     | 68.424 s  | -          |
 | Brent-Salamin | -    | -          | 3.2 ms     | 70.8 ms     | 1.231 s   | 21.364 s   |
 | Gauss-Legendre | -   | -          | 3.5 ms     | 70.6 ms     | 1.229 s   | 21.121 s   |
 | Machin-like Formula  | - | 1.9 ms | 14.9 ms    | 465.4 ms    | 8.673 s   | -          |
 | Chudnovsky | -       | -          | 5.1 ms     | 369.2 ms    | 38.22 s   | -          |
-| Chudnovsky Binary Splitting | - | - | -        | 23.5 ms     | 434.1 ms  | 7.9 s      |
+| Chudnovsky Binary Splitting | - | - | 2.0 ms   | 23.5 ms     | 434.1 ms  | 7.9 s      |
 | Chudnovsky Binary Splitting Parallelized | - | - | - | 19.9 ms | 293.7 ms | 4.628 s   |
 
 | Algorithm | 100M digits |
